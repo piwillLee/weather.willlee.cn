@@ -1,0 +1,67 @@
+/* app global css */
+
+:root {
+  --bgc: #fff;
+  --ft-color-white: #fff;
+  --pd: 16px;
+  --border-line: 1px solid #f2f2f236;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bgc);
+  /* 禁用页面默认下拉 */
+  overscroll-behavior-y: contain;
+}
+
+.top-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* background-color: var(--bgc); */
+  z-index: 9;
+  overflow: hidden;
+}
+
+.weather-bg {
+  background: linear-gradient(
+      167.93deg,
+      #44b1fb 0%,
+      #2861c3 71.85%,
+      #213cbc 100%
+    ),
+    #ffffff;
+  /* background-image: url("src/assets/img/bgc/bgc-w1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat; */
+  color: var(--ft-color-white);
+}
+body {
+  /* background-image: url("src/assets/img/bgc/bgc-2.jpg"); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--ft-color-white);
+}
+
+.opacity-3 {
+  opacity: 0.5;
+}
+.opacity-5 {
+  opacity: 0.5;
+}
+.opacity-8 {
+  opacity: 0.5;
+}
+
+.loading {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  /* background-color: #f5f4; */
+}

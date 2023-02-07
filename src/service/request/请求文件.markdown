@@ -1,0 +1,27 @@
+## 实时天气
+
+https://devapi.qweather.com/v7/weather/now?location=101010100&key=7823d8770a4e47e5825a87043157331a
+
+## 24 小时
+
+https://devapi.qweather.com/v7/weather/24h?location=101010100&key=7823d8770a4e47e5825a87043157331a
+
+## 7 天天气
+
+https://devapi.qweather.com/v7/weather/7d?location=101010100&key=7823d8770a4e47e5825a87043157331a
+
+## 空气质量
+
+https://devapi.qweather.com/v7/air/now?location=101010100&key=7823d8770a4e47e5825a87043157331a
+
+## 生活指数
+
+https://devapi.qweather.com/v7/indices/1d?type=1,2,3,4,5,6&location=101010100&key=7823d8770a4e47e5825a87043157331a
+
+## 热门城市
+
+https://geoapi.qweather.com/v2/city/top?number=20&range=cn&key=7823d8770a4e47e5825a87043157331a
+
+## 搜索结果
+
+https://geoapi.qweather.com/v2/city/lookup?location=%E5%AE%BF%E5%B7%9E&key=7823d8770a4e47e5825a87043157331a
