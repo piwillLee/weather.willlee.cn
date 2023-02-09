@@ -79,8 +79,6 @@
       <weather-sun-card :cardData="cardData_moon"> </weather-sun-card>
     </div>
 
-    <q-inner-loading class="loading" :showing="isLoading" label="获取数据中..." label-class="text-teal"
-      label-style="font-size: 1.5em" />
   </q-pull-to-refresh>
 
 </template>
@@ -105,10 +103,10 @@ const props = defineProps({
     default: () => ({})
   }
 })
-// console.log('cityData----------', props.cityData);
+
 
 const weatherStore = useWeatherStore();
-const { showWeatherDate, isLoading, temp24, tempNowObj, tempNowAir, tempNowAirObj, tempIndices, tempIndicesObj, locationCity, allCityList, cityList } = storeToRefs(weatherStore)
+const { showWeatherDate, isLoading, } = storeToRefs(weatherStore)
 
 onMounted(() => {
   gsap.to('.weather-template', { y: 0 })
@@ -118,37 +116,23 @@ onMounted(() => {
 /**
  * 下拉刷新
  */
-
-
-function showWeatherLoading () {
+function refresh (done) {
   isLoading.value = true
-  showWeatherDate.value = false
+  getWeatherData()
+  done()
+  isLoading.value = false
+}
 
+
+function getWeatherData () {
   // 清空cityData
   weatherStore.cityData = [];
   // 发送网络请求
   weatherStore.cityList.map((value) => {
     weatherStore.getCityData(value.id, value.name);
   });
-
-  setTimeout(() => {
-
-
-    isLoading.value = false
-    showWeatherDate.value = true
-
-  }, 1000)
-
-
 }
 
-function refresh (done) {
-  showWeatherLoading()
-  done()
-  // setTimeout(() => {
-
-  // }, 1000)
-}
 
 // 实时天气指数
 const content_now = [

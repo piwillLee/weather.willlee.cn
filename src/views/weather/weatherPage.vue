@@ -40,11 +40,19 @@ import { storeToRefs } from 'pinia';
 import WeatherTemplate from './cpns/weather-template.vue'
 import useMainStore from '../../stores/mainStore/mainStore';
 import useWeatherStore from 'src/stores/weatherStore/weatherStore'
+import { useQuasar } from 'quasar'
+import { onBeforeUnmount } from 'vue'
+
+const $q = useQuasar()
+console.log($q);
 
 const weatherStore = useWeatherStore()
 // 获取城市定位，成功时发送网络请求
 if (weatherStore.cityData.length < 1) {
+  // $q.loading.show()
   weatherStore.getGeoPosition()
+  // $q.loading.hide()
+
 }
 
 // 路由

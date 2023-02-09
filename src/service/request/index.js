@@ -2,10 +2,8 @@ import axios from "axios";
 import { BASE_URL_weatherCity, BASE_URL_weather, TIMEOUT } from "./config";
 import useWeatherStore from "src/stores/weatherStore/weatherStore";
 import store from "src/stores/index";
-
+import { Loading } from "quasar";
 const pinia = store();
-
-console.log("ddddddddddddddddddddddddddddd");
 
 const weatherStore = useWeatherStore(pinia);
 class HYRequest {
@@ -14,11 +12,11 @@ class HYRequest {
       baseURL,
       timeout,
     });
-
     this.instance.interceptors.request.use(
       (config) => {
-        // weatherStore.isLoading = true;
-        // weatherStore.showWeatherDate = false;
+        Loading.show({
+          message: "请求数据中，请稍等...",
+        });
         return config;
       },
       (err) => {
@@ -27,14 +25,11 @@ class HYRequest {
     );
     this.instance.interceptors.response.use(
       (res) => {
-        // weatherStore.isLoading = false;
-        // weatherStore.showWeatherDate = true;
+        Loading.hide();
         return res;
       },
       (err) => {
-        // weatherStore.isLoading = false;
-        // weatherStore.showWeatherDate = true;
-
+        Loading.hide();
         return err;
       }
     );

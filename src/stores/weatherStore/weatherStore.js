@@ -9,6 +9,8 @@ import {
   getTemp_indices,
 } from "src/service";
 
+import { Loading } from "quasar";
+
 const useWeatherStore = defineStore("weather", {
   state() {
     return {
@@ -43,6 +45,7 @@ const useWeatherStore = defineStore("weather", {
       const res = await getTemp_Now(city.id);
     },
 
+    // 获取天气数据
     async getCityData(id, name) {
       let now;
       // 实时天气
@@ -113,13 +116,21 @@ const useWeatherStore = defineStore("weather", {
         this.getCityData(value.id, value.name);
       });
     },
+    // 获取定位城市
     getGeoPosition(context) {
+      Loading.show({
+        message: "定位中，请稍等...",
+      });
       // 1.申请获取地理定位
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-          (pos) => getLocation(pos), // 成功函数
+          (pos) => {
+            getLocation(pos);
+            Loading.hide();
+          }, // 成功函数
           (e) => {
             this.setDefaultCity();
+            Loading.hide();
             showError(e);
           }, // 失败函数
           { timeout: 5000 } // PositionOptions参数 设置超时时间
