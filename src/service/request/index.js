@@ -14,9 +14,10 @@ class HYRequest {
     });
     this.instance.interceptors.request.use(
       (config) => {
-        Loading.show({
-          message: "请求数据中，请稍等...",
-        });
+        // Loading.show({
+        //   message: "请求数据中，请稍等...",
+        //   delay: 4000,
+        // });
         return config;
       },
       (err) => {
@@ -25,11 +26,11 @@ class HYRequest {
     );
     this.instance.interceptors.response.use(
       (res) => {
-        Loading.hide();
+        // Loading.hide();
         return res;
       },
       (err) => {
-        Loading.hide();
+        // Loading.hide();
         return err;
       }
     );

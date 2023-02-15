@@ -103,11 +103,8 @@ const props = defineProps({
     default: () => ({})
   }
 })
-
-
 const weatherStore = useWeatherStore();
 const { showWeatherDate, isLoading, } = storeToRefs(weatherStore)
-
 onMounted(() => {
   gsap.to('.weather-template', { y: 0 })
 
@@ -118,19 +115,18 @@ onMounted(() => {
  */
 function refresh (done) {
   isLoading.value = true
+  console.log('下拉刷新');
   getWeatherData()
   done()
   isLoading.value = false
 }
 
-
 function getWeatherData () {
-  // 清空cityData
+  // // 清空cityData
   weatherStore.cityData = [];
   // 发送网络请求
-  weatherStore.cityList.map((value) => {
-    weatherStore.getCityData(value.id, value.name);
-  });
+  weatherStore.getAllCityData()
+
 }
 
 

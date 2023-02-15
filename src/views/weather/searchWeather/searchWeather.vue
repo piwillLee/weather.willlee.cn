@@ -98,8 +98,9 @@ const onItemClick = (item) => {
   } else {
     // 新增城市
     cityList.value.push(cityObj)
+    console.log(cityList.value);
     // 发送网络请求，获取城市天气
-    weatherStore.getCityData(cityObj.id, cityObj.name)
+    weatherStore.getAllCityData()
     router.back()
   }
 }

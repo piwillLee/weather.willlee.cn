@@ -38,21 +38,29 @@ import { useRouter } from 'vue-router';
 import { ref, onMounted, computed, watch, toRaw, } from 'vue'
 import { storeToRefs } from 'pinia';
 import WeatherTemplate from './cpns/weather-template.vue'
-import useMainStore from '../../stores/mainStore/mainStore';
 import useWeatherStore from 'src/stores/weatherStore/weatherStore'
 import { useQuasar } from 'quasar'
-import { onBeforeUnmount } from 'vue'
+import { useGeolocation } from '@vueuse/core'
 
 const $q = useQuasar()
-console.log($q);
+const visible = ref(false)
+
+const geoPosition = ref()
+
+// 获取经纬度
+const { coords } = useGeolocation()
+// coords 是 RefImpl，不能直接取值，用 watch 取值
+watch(coords, (old) => {
+  geoPosition.value = {
+    latitude: old.latitude,
+    longitude: old.longitude
+  }
+})
 
 const weatherStore = useWeatherStore()
 // 获取城市定位，成功时发送网络请求
 if (weatherStore.cityData.length < 1) {
-  // $q.loading.show()
   weatherStore.getGeoPosition()
-  // $q.loading.hide()
-
 }
 
 // 路由
@@ -85,7 +93,6 @@ onMounted(() => {
     windowWidth.value = document.documentElement.clientWidth
   })
 })
-
 
 // 滑动切换
 const handleSwipe = (evt) => {

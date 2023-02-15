@@ -9,7 +9,7 @@ import {
   getTemp_indices,
 } from "src/service";
 
-import { Loading } from "quasar";
+import { Loading, QSpinnerTail } from "quasar";
 
 const useWeatherStore = defineStore("weather", {
   state() {
@@ -51,20 +51,16 @@ const useWeatherStore = defineStore("weather", {
       // 实时天气
       const res = await getTemp_Now(id);
       now = res.now;
-      console.log("实时天气", now);
 
       // 24小时天气
       let day;
       const res24 = await getTemp_24(id);
       day = res24.hourly;
 
-      console.log("24小时", day);
-
       // 七天天气;l
       let week;
       await getTemp_7d(id).then((res) => {
         week = res.daily;
-        console.log("七天天气", week);
       });
 
       // 天气质量
@@ -73,14 +69,12 @@ const useWeatherStore = defineStore("weather", {
         air = res.now;
         // console.log("------天气质量", tempNowAir.value);
       });
-
       // 生活指数
       let indices;
       await getTemp_indices(id).then((res) => {
         indices = res.daily;
-        // console.log("------生活指数", tempIndices.value);
       });
-      console.log("99999999999999999999999");
+
       const cityDataObj = {
         cityName: name,
         cityId: id,
@@ -93,29 +87,42 @@ const useWeatherStore = defineStore("weather", {
         },
       };
 
-      this.cityData.push(cityDataObj);
-
-      console.log("cityDate----------", this.cityData);
+      return cityDataObj;
     },
+
+    getAllCityData() {
+      Loading.show({
+        message: "请求数据中，请稍等...",
+        spinner: QSpinnerTail,
+      });
+      let promise = this.cityList.map((value) => {
+        return this.getCityData(value.id, value.name);
+      });
+
+      Promise.all(promise).then((data) => {
+        this.cityData = [];
+        data.forEach((value) => {
+          this.cityData.push(value);
+        });
+
+        Loading.hide(); // 请求结束
+      });
+    },
+
+    // 搜索城市
     async searchCityAction(location) {
       const res = await getWeatherSearchCity(location);
       const localCity = {
         name: res.location[0].name,
         id: res.location[0].id,
       };
-
       this.localCity = localCity;
       // 添加到城市列表
       this.cityList.unshift(this.localCity);
-
-      // 清空cityData
-      this.cityData = [];
-
       // 发送网络请求
-      this.cityList.map((value) => {
-        this.getCityData(value.id, value.name);
-      });
+      this.getAllCityData();
     },
+
     // 获取定位城市
     getGeoPosition(context) {
       Loading.show({
@@ -141,10 +148,7 @@ const useWeatherStore = defineStore("weather", {
 
       // 2.成功获取到定位
       const getLocation = (pos) => {
-        // 判断是否已获取到定位 ? 返回经纬度 : 直接使用ip定位
-        // pos = pos ? `${pos.coords.longitude},${pos.coords.latitude}` : "auto_ip";
-        pos = `${pos.coords.longitude},${pos.coords.latitude}`;
-        console.log("当前城市定位", pos);
+        pos = `${pos.coords.longitude},${pos.coords.latitude}`; // 定位城市经纬度
         this.searchCityAction(pos);
       };
 
@@ -166,16 +170,16 @@ const useWeatherStore = defineStore("weather", {
         }
       }
     },
+
+    // 设置默认城市
     setDefaultCity() {
       this.localCity = this.defaultCity;
       // 添加到城市列表
       this.cityList.unshift(this.localCity);
       // 清空cityData
-      this.cityData = [];
+      // this.cityData = [];
       // 发送网络请求
-      this.cityList.map((value) => {
-        this.getCityData(value.id, value.name);
-      });
+      this.getAllCityData();
     },
   },
 });

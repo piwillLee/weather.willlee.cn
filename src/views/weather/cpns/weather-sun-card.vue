@@ -20,7 +20,6 @@ const props = defineProps({
     default: () => ({})
   }
 })
-console.log(props.cardData);
 </script>
 
 <style  scoped>
