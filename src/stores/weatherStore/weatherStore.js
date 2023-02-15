@@ -44,7 +44,6 @@ const useWeatherStore = defineStore("weather", {
       let now = null;
       const res = await getTemp_Now(city.id);
     },
-
     // 获取天气数据
     async getCityData(id, name) {
       let now;
@@ -89,7 +88,6 @@ const useWeatherStore = defineStore("weather", {
 
       return cityDataObj;
     },
-
     getAllCityData() {
       Loading.show({
         message: "请求数据中，请稍等...",
@@ -98,13 +96,11 @@ const useWeatherStore = defineStore("weather", {
       let promise = this.cityList.map((value) => {
         return this.getCityData(value.id, value.name);
       });
-
       Promise.all(promise).then((data) => {
         this.cityData = [];
         data.forEach((value) => {
           this.cityData.push(value);
         });
-
         Loading.hide(); // 请求结束
       });
     },

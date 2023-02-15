@@ -8,9 +8,8 @@
           <q-btn flat round dense icon="bi-search" @click="onRightBtnClick" />
         </q-toolbar>
       </div>
-      <div class="city-list q-pa-lg">
+      <!-- <div class="city-list q-pa-lg">
         <template v-for="(item, index) in cityList" :key="index">
-
           <div v-touch-hold.mouse="handleHold"
             class="city-list-item shadow-1 q-mb-lg q-pa-md  rounded-borders text-subtitle1"
             @click="deleteCity(item, index)">
@@ -24,7 +23,35 @@
             </q-card>
           </q-dialog>
         </template>
-      </div>
+      </div> -->
+
+      <q-list class=" q-pa-lg bt">
+        <template v-for="(item, index) in cityList" :key="index">
+          <q-slide-item left-color="teal-10" right-color="red-6" @action="deleteCity(item, index)" @right="onRight"
+            class="city-list-item     bg-light-blue-10 q-mb-md
+
+  ">
+            <q-item class="row items-center">
+
+
+              {{ item.name }}
+              <q-icon v-if="index == 0" class="q-ml-md" name="bi-geo-alt" />
+
+            </q-item>
+
+
+            <template v-slot:right>
+              <q-item class="row items-center">
+                删除
+                <q-icon name="delete" />
+              </q-item>
+
+            </template>
+          </q-slide-item>
+        </template>
+
+
+      </q-list>
     </div>
   </div>
 </template>
@@ -34,7 +61,7 @@ import { useRouter } from 'vue-router';
 
 import useWeatherStore from 'src/stores/weatherStore/weatherStore'
 import { storeToRefs } from 'pinia';
-
+import { useQuasar } from 'quasar';
 const weatherStore = useWeatherStore();
 const { cityData, cityList } = storeToRefs(weatherStore)
 const small = ref(false)
@@ -61,6 +88,22 @@ const onLeftBtnClick = () => {
 }
 const onRightBtnClick = () => {
   router.push('/weather/search');
+}
+
+const $q = useQuasar()
+
+
+let timer
+
+// function finalize (reset) {
+//   timer = setTimeout(() => {
+//     reset()
+//   }, 10)
+// }
+
+const onRight = ({ reset }) => {
+  reset()
+  // finalize(reset)
 }
 </script>
 
@@ -96,11 +139,9 @@ const onRightBtnClick = () => {
   align-items: center;
 }
 
-.city-list-item {
-  background-color: rgba(22, 22, 22, 0.6);
-}
 
-.q-dialog__backdrop {
-  background-color: rgba(22, 22, 22, 0.2);
-}
+
+/* .q-slide-item__right {
+  background-color: none !important;
+} */
 </style>
