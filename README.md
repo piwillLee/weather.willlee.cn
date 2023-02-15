@@ -1,41 +1,29 @@
-# Quasar App (quasar-project)
+# 天天天气
 
-A Quasar Project
+## 介绍
 
-## Install the dependencies
+一个基于 Vue3 框架和 Quasar UI 组件开发的天气应用。
+
+### 项目预览地址
+
+[项目地址](https://weather.willlee.cn).
+
+## 安装项目
+
 ```bash
 yarn
 # or
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Start the app in development mode
+
 ```bash
 quasar dev
 ```
 
-
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
 ### Build the app for production
+
 ```bash
 quasar build
 ```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).

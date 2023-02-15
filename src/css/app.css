@@ -1,5 +1,5 @@
 /* app global css */
-
+@import "./reset.css";
 :root {
   --bgc: #fff;
   --ft-color-white: #fff;

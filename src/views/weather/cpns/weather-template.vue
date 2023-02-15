@@ -85,6 +85,11 @@
 
       <!-- 月亮 -->
       <weather-sun-card :cardData="cardData_moon"> </weather-sun-card>
+
+      <footer class="footer row items-center justify-center q-mt-lg">
+        <span class="q-mr-sm">气象数据来源: </span>
+        <a href="https://www.qweather.com/" target="_blank">和风天气</a>
+      </footer>
     </div>
 
   </q-pull-to-refresh>
@@ -473,10 +478,7 @@ const tempIndicesIcon = (index) => {
   justify-content: space-between;
 }
 
-/* .sun-time {
-  display: flex;
-  align-items: center;
-
-
-} */
+.footer {
+  opacity: 0.5;
+}
 </style>

@@ -20,8 +20,8 @@
         </div>
       </div>
       <!-- footer -->
-      <div class="page-footer">
-        <div class="footer-index row justify-center">
+      <div class="page-footer column items-center justify-center">
+        <div class="footer-index row justify-center ">
           <div class="index-dot q-mr-sm" v-for="(item, index) in cityList.length" :key="index">
             <q-icon :name="indexIcon(index)" :class="(currentIndex == index ? '' : 'opacity-5')" />
           </div>
