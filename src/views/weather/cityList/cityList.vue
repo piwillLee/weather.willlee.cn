@@ -26,37 +26,36 @@
       </div> -->
 
       <q-list class=" q-pa-lg bt">
-        <template v-for="(item, index) in cityList" :key="index">
+        <template v-for="(item, index) in cityData" :key="index">
           <q-slide-item left-color="teal-10" right-color="red-6" @action="deleteCity(item, index)" @right="onRight"
-            class="city-list-item     bg-light-blue-10 q-mb-md
-
+            class="city-list-item     bg-light-blue-10 q-mb-md rounded-borders
   ">
-            <q-item class="row items-center">
-
-
-              {{ item.name }}
-              <q-icon v-if="index == 0" class="q-ml-md" name="bi-geo-alt" />
-
-            </q-item>
-
-
+            <div class="row justify-between q-pa-md">
+              <div class="row  items-center text-subtitle1
+    ">
+                {{ item.cityName }}
+                <q-icon v-if="index == 0" class="q-ml-md" name="bi-geo-alt" />
+              </div>
+              <span>
+                <span class="text-h5">{{ item.cityData.now.temp }}</span>
+                <span class="q-ml-sm">℃</span>
+              </span>
+            </div>
             <template v-slot:right>
               <q-item class="row items-center">
                 删除
                 <q-icon name="delete" />
               </q-item>
-
             </template>
           </q-slide-item>
         </template>
-
 
       </q-list>
     </div>
   </div>
 </template>
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, } from 'vue';
 import { useRouter } from 'vue-router';
 
 import useWeatherStore from 'src/stores/weatherStore/weatherStore'

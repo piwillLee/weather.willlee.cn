@@ -2,7 +2,7 @@
   <div class="weather-bg">
     <div class="search top-page weather-bg-blur">
       <div class="q-pa-md">
-        <q-input v-model="searchText" dense debounce="500" placeholder="城市名称" clearable>
+        <q-input v-model="searchText" autofocus dense debounce="500" placeholder="城市名称" clearable>
           <template v-slot:prepend>
             <q-icon name="bi-search" />
           </template>
