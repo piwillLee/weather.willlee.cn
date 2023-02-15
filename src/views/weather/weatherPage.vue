@@ -15,7 +15,6 @@
         <div class="weather-page" v-touch-swipe.mouse.right.left="handleSwipe" :style="move">
           <div ref="cardRef" :style="{ width: windowWidth + 'px' }" class="card scroll hide-scrollbar"
             v-for="(item, index) in cityData" :key="index">
-
             <weather-template :cityData="item"></weather-template>
           </div>
         </div>
@@ -44,9 +43,7 @@ import { useGeolocation } from '@vueuse/core'
 
 const $q = useQuasar()
 const visible = ref(false)
-
 const geoPosition = ref()
-
 // 获取经纬度
 const { coords } = useGeolocation()
 // coords 是 RefImpl，不能直接取值，用 watch 取值
@@ -56,13 +53,11 @@ watch(coords, (old) => {
     longitude: old.longitude
   }
 })
-
 const weatherStore = useWeatherStore()
 // 获取城市定位，成功时发送网络请求
 if (weatherStore.cityData.length < 1) {
   weatherStore.getGeoPosition()
 }
-
 // 路由
 const router = useRouter()
 const onRightBtnClick = () => {
@@ -84,15 +79,16 @@ const move = computed(() => {
 // 当前总共移动距离
 let totalDistance = ref('0')
 
+
 // 获取屏幕宽度
 const windowWidth = ref('0')
-// windowWidth.value = document.documentElement.clientWidth
 onMounted(() => {
   windowWidth.value = document.documentElement.clientWidth
   window.addEventListener('resize', () => {
     windowWidth.value = document.documentElement.clientWidth
   })
 })
+
 
 // 滑动切换
 const handleSwipe = (evt) => {

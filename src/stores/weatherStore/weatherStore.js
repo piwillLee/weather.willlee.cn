@@ -9,8 +9,7 @@ import {
   getTemp_indices,
 } from "src/service";
 
-import { Loading, QSpinnerTail } from "quasar";
-
+import { Loading, QSpinnerTail, LocalStorage } from "quasar";
 const useWeatherStore = defineStore("weather", {
   state() {
     return {
@@ -22,7 +21,7 @@ const useWeatherStore = defineStore("weather", {
         name: "北京",
         id: "101010100",
       },
-      cityList: [],
+      cityList: LocalStorage.getItem("cityList") ?? [],
       cityData: [],
       tempNow: [],
       tempNowObj: "",
@@ -112,9 +111,14 @@ const useWeatherStore = defineStore("weather", {
         name: res.location[0].name,
         id: res.location[0].id,
       };
+
       this.localCity = localCity;
-      // 添加到城市列表
-      this.cityList.unshift(this.localCity);
+      // 先判断是否有本地缓存
+      if (!LocalStorage.getItem("cityList")) {
+        // 添加到城市列表
+        this.cityList.unshift(this.localCity);
+      }
+
       // 发送网络请求
       this.getAllCityData();
     },

@@ -50,9 +50,11 @@ import { ref, watch } from 'vue';
 import useWeatherStore from 'src/stores/weatherStore/weatherStore'
 import { storeToRefs } from 'pinia';
 import { LocalStorage } from 'quasar';
+import { useQuasar } from 'quasar'
 
 const weatherStore = useWeatherStore();
 const { cityList, hotCityList } = storeToRefs(weatherStore)
+const $q = useQuasar()
 
 const router = useRouter()
 
@@ -70,6 +72,8 @@ watch(searchText, () => {
   } else {
     isSearch.value = false
   }
+
+
 
   // 获取搜索结果
   getWeatherSearchCity(searchText.value).then(res => {
@@ -97,8 +101,11 @@ const onItemClick = (item) => {
     router.back() // 城市已经在列表中
   } else {
     // 新增城市
+
     cityList.value.push(cityObj)
-    console.log(cityList.value);
+
+    // 本地化
+    $q.localStorage.set('cityList', cityList.value)
     // 发送网络请求，获取城市天气
     weatherStore.getAllCityData()
     router.back()

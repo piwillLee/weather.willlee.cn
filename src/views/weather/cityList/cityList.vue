@@ -8,23 +8,6 @@
           <q-btn flat round dense icon="bi-search" @click="onRightBtnClick" />
         </q-toolbar>
       </div>
-      <!-- <div class="city-list q-pa-lg">
-        <template v-for="(item, index) in cityList" :key="index">
-          <div v-touch-hold.mouse="handleHold"
-            class="city-list-item shadow-1 q-mb-lg q-pa-md  rounded-borders text-subtitle1"
-            @click="deleteCity(item, index)">
-            {{ item.name }}
-            <q-icon v-if="index == 0" class="" name="bi-geo-alt" />
-          </div>
-          <q-dialog v-model="small">
-            <q-card class="weather-bg column justfy-center">
-              <q-btn padding="20px 30px" size="sm" @click="deleteCity(item, index)" icon="delete" flat label="删除">
-              </q-btn>
-            </q-card>
-          </q-dialog>
-        </template>
-      </div> -->
-
       <q-list class=" q-pa-lg bt">
         <template v-for="(item, index) in cityData" :key="index">
           <q-slide-item left-color="teal-10" right-color="red-6" @action="deleteCity(item, index)" @right="onRight"
@@ -69,6 +52,9 @@ function handleHold () {
   small.value = true
 }
 
+const $q = useQuasar()
+
+
 /**
  * 删除城市列表项
  */
@@ -76,6 +62,10 @@ function deleteCity (item, index) {
   // 第一个是定位城市，不能删除
   if (index !== 0) {
     cityList.value.splice(index, 1);
+    // 本地化
+    $q.localStorage.set('cityList', cityList.value)
+
+
     cityData.value.splice(index, 1);
   }
 }
@@ -89,7 +79,6 @@ const onRightBtnClick = () => {
   router.push('/weather/search');
 }
 
-const $q = useQuasar()
 
 
 let timer
