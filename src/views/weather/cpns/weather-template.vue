@@ -17,8 +17,10 @@
         </div>
       </div>
 
+      <!-- <hour-line-chat  :data="props.cityData.cityData.day"></hour-line-chat> -->
       <!-- 24小时 -->
       <div class="tempToday hide-scrollbar  row  no-wrap " @touchstart.stop @mousedown.stop>
+
         <div class="item column items-center no-wrap" v-for="(item, index) in props.cityData.cityData.day" :key="index">
           <!-- 温度 -->
           <div class="temp">
@@ -45,13 +47,7 @@
       <div class="temp7d 	">
         <div class="temp7d-item" v-for="item, index in props.cityData.cityData.week" :key="index">
           <span class="week"> {{ fmtDate(item.fxDate) }} {{ getWeek(formatE(item.fxDate)) }}</span>
-          <div class="weather-icon" :style="{
-            background: `url(weatherIcons/${item.iconDay}.svg)`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center center',
-            backgroundSize: 'contain'
-          }" alt="QWeather" draggable="false"></div>
-          <!-- <img class="weather-icon" :src="`weatherIcons/${item.iconDay}.svg`" alt="QWeather" draggable="false"> -->
+          <img class="weather-icon" :src="`weatherIcons/${item.iconDay}.svg`" alt="QWeather" draggable="false">
           <span class="temp-range">
             <span>{{ item.tempMin }}</span>
             <span>{{ item.tempMax }}</span>
@@ -86,7 +82,7 @@
       <!-- 月亮 -->
       <weather-sun-card :cardData="cardData_moon"> </weather-sun-card>
 
-      <footer class="footer row items-center justify-center q-mt-lg">
+      <footer class="footer-text row items-center justify-center q-mt-lg">
         <span class="q-mr-sm">气象数据来源: </span>
         <a href="https://www.qweather.com/" target="_blank">和风天气</a>
       </footer>
@@ -102,7 +98,7 @@ import { storeToRefs } from 'pinia';
 import fmtDate from "src/utils/format/format-day"
 import axios from 'axios';
 import gsap from 'gsap';
-
+import hourLineChat from 'src/components/weather/hourLineChat.vue'
 import useWeatherStore from 'src/stores/weatherStore/weatherStore'
 import { date } from 'quasar'
 
@@ -116,6 +112,7 @@ const props = defineProps({
     default: () => ({})
   }
 })
+
 const weatherStore = useWeatherStore();
 const { showWeatherDate, isLoading, } = storeToRefs(weatherStore)
 onMounted(() => {
@@ -126,7 +123,6 @@ onMounted(() => {
  */
 function refresh (done) {
   isLoading.value = true
-  console.log('下拉刷新');
   getWeatherData()
   done()
   isLoading.value = false
@@ -173,7 +169,7 @@ const content_now = [
 ]
 // 生活指数数据
 const content_indices = ref()
-console.log(props.cityData.cityData.indices);
+
 if (props.cityData.cityData.indices != undefined) {
   content_indices.value = [
     {
@@ -215,7 +211,7 @@ if (props.cityData.cityData.indices != undefined) {
 
 // 空气指数
 const content_air = ref()
-console.log(props.cityData.cityData.air);
+
 if (props.cityData.cityData.air != undefined) {
   content_air.value = [
     {
@@ -461,11 +457,12 @@ const tempIndicesIcon = (index) => {
 
 .air-footer-item .name {
   font-size: 12px;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 .air-footer-item .text {
   font-size: 16px;
+  color: #ffffff;
 }
 
 /* 日出 日落*/
@@ -478,7 +475,7 @@ const tempIndicesIcon = (index) => {
   justify-content: space-between;
 }
 
-.footer {
+.footer-text {
   opacity: 0.5;
 }
 </style>
