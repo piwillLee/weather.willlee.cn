@@ -6,9 +6,11 @@
 
 ### 项目预览地址
 
-[项目地址](https://weather.willlee.cn).
+[weather.willlee.cn](https://weather.willlee.cn).
 
 ## 安装项目
+
+### 安装项目依赖
 
 ```bash
 yarn
@@ -16,13 +18,13 @@ yarn
 npm install
 ```
 
-### Start the app in development mode
+### 启动本地服务
 
 ```bash
 quasar dev
 ```
 
-### Build the app for production
+### 打包项目
 
 ```bash
 quasar build
