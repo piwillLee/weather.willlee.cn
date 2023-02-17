@@ -4,9 +4,9 @@
       <!-- header -->
       <div class="page-header ">
         <div class="left botton" @click="onLeftBtnClick">
-          <q-icon name="my_location" size="sm" class="icon" />
+          <q-icon name="my_location" class="icon" />
         </div>
-        <div class="title"></div>
+        <div class="title botton">天天天气</div>
         <div class="right botton" @click="onRightBtnClick">
           <q-icon name="bi-plus-lg" class="icon" />
         </div>
@@ -158,7 +158,7 @@ const indexIcon = (index) => {
   align-items: center;
   /* width: 48px; */
   height: 48px;
-  font-size: 24px;
+  font-size: 16px;
 }
 
 .page-content {
