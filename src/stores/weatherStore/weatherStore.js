@@ -115,12 +115,18 @@ const useWeatherStore = defineStore("weather", {
       this.localCity = localCity;
       // 先判断是否有本地缓存
       if (!LocalStorage.getItem("cityList")) {
-        // 添加到城市列表
-        this.cityList.unshift(this.localCity);
-      }
+        // 无缓存时
 
-      // 发送网络请求
-      this.getAllCityData();
+        this.cityList.unshift(this.localCity);
+
+        // 发送网络请求
+        this.getAllCityData();
+      } else {
+        // 有缓存时
+
+        // 发送网络请求
+        this.getAllCityData();
+      }
     },
 
     // 获取定位城市
@@ -174,12 +180,25 @@ const useWeatherStore = defineStore("weather", {
     // 设置默认城市
     setDefaultCity() {
       this.localCity = this.defaultCity;
-      // 添加到城市列表
-      this.cityList.unshift(this.localCity);
-      // 清空cityData
-      // this.cityData = [];
-      // 发送网络请求
-      this.getAllCityData();
+
+      // 判断城市列表是否已经存在默认城市
+      let isHasSameCity = false;
+      let cityIndex = 0;
+      this.cityList.forEach((city, index) => {
+        if (city.name == this.defaultCity.name) {
+          isHasSameCity = true;
+          cityIndex = index;
+        }
+      });
+      if (isHasSameCity) {
+        // 发送网络请求
+        this.getAllCityData();
+      } else {
+        // 添加到城市列表
+        this.cityList.unshift(this.localCity);
+        // 发送网络请求
+        this.getAllCityData();
+      }
     },
   },
 });

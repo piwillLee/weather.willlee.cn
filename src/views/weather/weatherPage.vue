@@ -2,8 +2,10 @@
   <div class="weather weather-bg">
     <div class="page-layout">
       <!-- header -->
-      <div class="page-header " @click="onLeftBtnClick">
-        <div class="left botton"></div>
+      <div class="page-header ">
+        <div class="left botton" @click="onLeftBtnClick">
+          <q-icon name="my_location" size="sm" class="icon" />
+        </div>
         <div class="title"></div>
         <div class="right botton" @click="onRightBtnClick">
           <q-icon name="bi-plus-lg" class="icon" />
@@ -54,10 +56,22 @@ watch(coords, (old) => {
   }
 })
 const weatherStore = useWeatherStore()
-// 获取城市定位，成功时发送网络请求
-if (weatherStore.cityData.length < 1) {
+
+// 本地是否有城市缓存
+if ($q.localStorage.getItem("cityList")) {
+  // 发送网络请求
+  weatherStore.getAllCityData();
+} else {
+  // 获取城市定位，成功时发送网络请求
   weatherStore.getGeoPosition()
 }
+
+
+// 获取定位
+const onLeftBtnClick = () => {
+  weatherStore.getGeoPosition()
+}
+
 // 路由
 const router = useRouter()
 const onRightBtnClick = () => {
@@ -92,8 +106,6 @@ onMounted(() => {
 
 // 滑动切换
 const handleSwipe = (evt) => {
-
-  console.log('滑动方向', evt.direction);
   // 向左
   if (evt.direction === 'left' && currentIndex.value < cityList.value.length - 1) {
     currentIndex.value++
