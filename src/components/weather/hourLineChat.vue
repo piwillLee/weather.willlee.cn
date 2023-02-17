@@ -133,7 +133,7 @@ onMounted(() => {
 })
 </script>
 
-<style lang="less" scoped>
+<style  scoped>
 .home {
   display: flex;
 }
