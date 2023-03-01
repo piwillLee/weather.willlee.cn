@@ -139,6 +139,7 @@ const indexIcon = (index) => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .page-header {
@@ -168,9 +169,12 @@ const indexIcon = (index) => {
 }
 
 .page-footer {
+  position: sticky;
+  bottom: 0;
   border-top: var(--border-line);
   height: 48px;
-
+  overflow: hidden;
+  background: #2861c3;
 }
 
 
