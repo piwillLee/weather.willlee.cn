@@ -3,12 +3,17 @@
     <div class="page-layout">
       <!-- header -->
       <div class="page-header ">
-        <div class="left botton" @click="onLeftBtnClick">
-          <q-icon name="my_location" class="icon" />
+        <div class="left botton">
+          <img class="logo" src="favicon.ico" alt="">
+          天天天气
         </div>
-        <div class="title botton">天天天气</div>
-        <div class="right botton" @click="onRightBtnClick">
-          <q-icon name="bi-plus-lg" class="icon" />
+        <div class="title botton">
+
+
+        </div>
+        <div class="right botton">
+          <q-icon @click="onLeftBtnClick" name="my_location" class="icon q-mr-md" size="xs" />
+          <q-icon @click="onRightBtnClick" name="bi-plus-lg" class="icon" size="sm" />
         </div>
       </div>
       <!-- content -->
@@ -151,7 +156,9 @@ const indexIcon = (index) => {
   justify-content: space-between;
   align-items: center;
   border-bottom: var(--border-line);
+  user-select: none;
 }
+
 
 .page-header>.botton {
   display: flex;
@@ -160,6 +167,13 @@ const indexIcon = (index) => {
   /* width: 48px; */
   height: 48px;
   font-size: 16px;
+}
+
+.logo {
+  width: 24px;
+  height: 24px;
+  margin: 6px;
+
 }
 
 .page-content {

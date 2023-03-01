@@ -303,7 +303,7 @@ const tempIndicesIcon = (index) => {
 }
 
 .tempNow>.text-shadow {
-  text-shadow: 6px 6px 0px #2861c3;
+  text-shadow: 3px 3px 0px #FFAD21;
 }
 
 
