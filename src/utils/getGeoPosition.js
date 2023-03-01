@@ -5,19 +5,19 @@ export default function getGeoPosition(context) {
       (pos) => getLocation(pos), // 成功函数
       (e) => showError(e), // 失败函数
       { timeout: 5000 } // PositionOptions参数 设置超时时间
-    );
+    )
   } else {
-    alert("浏览器不支持地理定位！");
+    alert('浏览器不支持地理定位！')
   }
 
   // 2.成功获取到定位
   const getLocation = (pos) => {
     // 判断是否已获取到定位 ? 返回经纬度 : 直接使用ip定位
     // pos = pos ? `${pos.coords.longitude},${pos.coords.latitude}` : "auto_ip";
-    pos = `${pos.coords.longitude},${pos.coords.latitude}`;
-    console.log("当前城市定位", pos);
-    return pos;
-  };
+    pos = `${pos.coords.longitude},${pos.coords.latitude}`
+    console.log('当前城市定位', pos)
+    return pos
+  }
 
   // 3.定位失败反馈
   // function showError(error) {

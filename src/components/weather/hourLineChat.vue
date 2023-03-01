@@ -1,71 +1,70 @@
 <template>
   <div class="hour-line-chat">
     <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
-    <div id="main" style="width:100%;height:400px;"></div>
+    <div id="main" style="width: 100%; height: 400px"></div>
   </div>
 </template>
 
-<script setup >
-import * as echarts from 'echarts';
-import { ref, onMounted } from 'vue';
-import dayjs from 'dayjs';
+<script setup>
+import * as echarts from 'echarts'
+import { ref, onMounted } from 'vue'
+import dayjs from 'dayjs'
 
 const props = defineProps({
   data: {
     type: Array,
-    default: (() => [])
-  }
+    default: () => [],
+  },
 })
 
-const hourTempData = ref([]);// 24小时天气数组
-const hourTimeData = ref([]);// 24小时时间
-const tempIcon = ref([]); // icon
-props.data.forEach(item => {
-  hourTempData.value.push(item.temp);
-  hourTimeData.value.push(dayjs(item.fxTime).format('hh:mm'));
-  tempIcon.value.push(`weatherIcons/${item.icon}.svg`);
+const hourTempData = ref([]) // 24小时天气数组
+const hourTimeData = ref([]) // 24小时时间
+const tempIcon = ref([]) // icon
+props.data.forEach((item) => {
+  hourTempData.value.push(item.temp)
+  hourTimeData.value.push(dayjs(item.fxTime).format('hh:mm'))
+  tempIcon.value.push(`weatherIcons/${item.icon}.svg`)
 })
-
 
 onMounted(() => {
-
   // 基于准备好的dom，初始化echarts实例
-  var myChart = echarts.init(document.getElementById('main'));
+  var myChart = echarts.init(document.getElementById('main'))
 
   const option = {
     color: ['#3398DB'],
     tooltip: {
-      trigger: 'axis'
+      trigger: 'axis',
     },
     xAxis: [
       {
-        data: hourTimeData.value
-        ,
+        data: hourTimeData.value,
         offset: 20,
-        axisLine: {            // 坐标轴线
-          show: false,        // 默认显示，属性show控制显示与否
+        axisLine: {
+          // 坐标轴线
+          show: false, // 默认显示，属性show控制显示与否
           onZero: false,
           lineStyle: {
-            color: "rgba(255, 255, 255, 1)"
-          }
+            color: 'rgba(255, 255, 255, 1)',
+          },
         },
-        axisTick: {  // 坐标轴刻度相关设置。
+        axisTick: {
+          // 坐标轴刻度相关设置。
           alignWithLabel: true,
-          show: false
+          show: false,
         },
         axisLabel: {
           formatter: function (value) {
             return value
           },
-          rich: ''
-        }
+          rich: '',
+        },
       },
     ],
     yAxis: {
       show: false,
       splitLine: {
-        show: false
-      }
+        show: false,
+      },
     },
 
     dataZoom: {
@@ -73,7 +72,6 @@ onMounted(() => {
       type: 'inside',
       zoomOnMouseWheel: false, //滚轮是否触发缩放,
       moveOnMouseMove: true, //鼠标滚轮触发滚动
-
     },
     series: {
       type: 'line',
@@ -89,27 +87,32 @@ onMounted(() => {
               y: 0,
               x2: 0,
               y2: 1,
-              colorStops: [{
-                offset: 0, color: '#ff4f16' // 0% 处的颜色
-              }, {
-                offset: 1, color: '#30c055' // 100% 处的颜色
-              }],
-              global: false // 缺省为 false
+              colorStops: [
+                {
+                  offset: 0,
+                  color: '#ff4f16', // 0% 处的颜色
+                },
+                {
+                  offset: 1,
+                  color: '#30c055', // 100% 处的颜色
+                },
+              ],
+              global: false, // 缺省为 false
             },
 
             offset: 13,
             shadowBlur: 12,
             shadowOffsetX: 1,
-            shadowOffsetY: 10.5
-          }
-        }
-      }
-    }
+            shadowOffsetY: 10.5,
+          },
+        },
+      },
+    },
   }
 
   const xAxis = option.xAxis
   var obj = {}
-  xAxis.filter(value => {
+  xAxis.filter((value) => {
     value.data.forEach((item, index) => {
       var time = hourTimeData.value[index]
 
@@ -117,23 +120,22 @@ onMounted(() => {
         // width: 50,
         height: 50,
         align: 'center',
-        backgroundColor: tempIcon.value[index]
+        backgroundColor: tempIcon.value[index],
       }
     })
   })
 
   option.xAxis[0].axisLabel.rich = obj
   // 绘制图表
-  myChart.setOption(option);
+  myChart.setOption(option)
 
-  window.addEventListener("resize", function () {
-    myChart.resize();
-  });
-
+  window.addEventListener('resize', function () {
+    myChart.resize()
+  })
 })
 </script>
 
-<style  scoped>
+<style scoped>
 .home {
   display: flex;
 }

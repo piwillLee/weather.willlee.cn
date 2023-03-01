@@ -1,10 +1,12 @@
 /* app global css */
-@import "./reset.css";
+@import './reset.css';
 :root {
   --bgc: #fff;
   --ft-color-white: #fff;
   --pd: 16px;
   --border-line: 1px solid #f2f2f236;
+  --primary: #2668b9;
+  --secondary: #ffad21;
 }
 
 .bt {
@@ -22,7 +24,7 @@
 }
 
 body {
-  background-color: var(--bgc);
+  background-color: var(--primary);
   /* 禁用页面默认下拉 */
   overscroll-behavior-y: contain;
 }
@@ -31,14 +33,12 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
-  /* background-color: var(--bgc); */
   z-index: 9;
   overflow: hidden;
 }
 
 .weather-bg {
-  background: linear-gradient(167.93deg, #2861c3 0%, #2861c3 70%, #2861c3 100%),
-    #ffffff;
+  background: var(--primary);
   color: var(--ft-color-white);
 }
 body {
@@ -63,5 +63,4 @@ body {
   top: 0;
   width: 100vw;
   height: 100vh;
-  /* background-color: #f5f4; */
 }

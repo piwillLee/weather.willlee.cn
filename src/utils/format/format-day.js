@@ -1,7 +1,7 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs'
 
 const fmtDate = (date) => {
-  return dayjs(date).format("MM/DD");
-};
+  return dayjs(date).format('MM/DD')
+}
 
-export default fmtDate;
+export default fmtDate

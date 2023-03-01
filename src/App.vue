@@ -1,17 +1,9 @@
 <template>
   <div class="app">
-    <keep-alive>
+    <keep-alive include="WeatherPage">
       <router-view />
     </keep-alive>
   </div>
 </template>
 
-<script setup>
-
-import useMainStore from './stores/mainStore/mainStore';
-import { storeToRefs } from 'pinia';
-
-const mainStore = useMainStore()
-const { isShowTabbar } = storeToRefs(mainStore)
-
-</script>
+<script setup></script>

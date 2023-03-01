@@ -1,2 +1,2 @@
-export * from "./modules/home";
-export * from "./modules/weather";
+export * from './modules/home'
+export * from './modules/weather'

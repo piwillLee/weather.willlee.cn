@@ -1,5 +1,5 @@
 <template>
-  <div class="contentCard  justify-between row  q-py-sm q-mt-md shadow-1">
+  <div class="contentCard justify-between row q-py-sm q-mt-md shadow-1">
     <template v-for="(item, index) in content" :key="index">
       <div class="cardItem col-4 column justify-center items-center q-pa-md">
         <q-icon :name="item.icon" class="icon" />
@@ -14,13 +14,12 @@
 const props = defineProps({
   content: {
     type: Object,
-    default: () => ({})
-  }
+    default: () => ({}),
+  },
 })
-
 </script>
 
-<style   scoped>
+<style scoped>
 .contentCard {
   /* border: 1px solid ; */
   background-color: rgba(255, 255, 255, 0.1);

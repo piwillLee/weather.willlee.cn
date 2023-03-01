@@ -2,13 +2,12 @@
   <div class="weather weather-bg">
     <div class="page-layout">
       <!-- header -->
-      <div class="page-header ">
+      <div class="page-header">
         <div class="left botton">
-          <img class="logo" src="favicon.ico" alt="">
+          <img class="logo" src="favicon.ico" alt="" />
           天天天气
         </div>
-        <div class="title botton">
-        </div>
+        <div class="title botton"></div>
         <div class="right botton">
           <q-icon @click="onLeftBtnClick" name="my_location" class="icon q-mr-md" size="xs" />
           <q-icon @click="onRightBtnClick" name="bi-plus-lg" class="icon" size="sm" />
@@ -16,36 +15,44 @@
       </div>
       <!-- content -->
       <div class="page-content hide-scrollbar" :style="{ width: windowWidth + 'px' }">
-
         <div class="weather-page" v-touch-swipe.mouse.right.left="handleSwipe" :style="move">
-          <div ref="cardRef" :style="{ width: windowWidth + 'px' }" class="card scroll hide-scrollbar"
-            v-for="(item, index) in cityData" :key="index">
+          <div
+            ref="cardRef"
+            :style="{ width: windowWidth + 'px' }"
+            class="card scroll hide-scrollbar"
+            v-for="(item, index) in cityData"
+            :key="index"
+          >
             <weather-template :cityData="item"></weather-template>
           </div>
         </div>
       </div>
       <!-- footer -->
       <div class="page-footer column items-center justify-center">
-        <div class="footer-index row justify-center items-center ">
+        <div class="footer-index row justify-center items-center">
           <div class="index-dot q-mx-xs" v-for="(item, index) in cityList.length" :key="index">
-            <q-icon :name="indexIcon(index)" :class="(currentIndex == index ? '' : 'opacity-5')" />
+            <q-icon :name="indexIcon(index)" :class="currentIndex == index ? '' : 'opacity-5'" />
           </div>
         </div>
       </div>
     </div>
-    <q-inner-loading class="loading" :showing="visible" label="获取数据中..." label-class="text-teal"
-      label-style="font-size: 1.5em" />
+    <q-inner-loading
+      class="loading"
+      :showing="visible"
+      label="获取数据中..."
+      label-class="text-teal"
+      label-style="font-size: 1.5em"
+    />
   </div>
 </template>
 <script setup>
-import { useRouter } from 'vue-router';
-import { ref, onMounted, computed, watch, toRaw, } from 'vue'
-import { storeToRefs } from 'pinia';
+import { useRoute, useRouter } from 'vue-router'
+import { ref, onMounted, computed, watch, toRaw } from 'vue'
+import { storeToRefs } from 'pinia'
 import WeatherTemplate from './cpns/weather-template.vue'
 import useWeatherStore from 'src/stores/weatherStore/weatherStore'
 import { useQuasar } from 'quasar'
 import { useGeolocation } from '@vueuse/core'
-
 const $q = useQuasar()
 const visible = ref(false)
 const geoPosition = ref()
@@ -55,33 +62,32 @@ const { coords } = useGeolocation()
 watch(coords, (old) => {
   geoPosition.value = {
     latitude: old.latitude,
-    longitude: old.longitude
+    longitude: old.longitude,
   }
 })
+// 路由
+const router = useRouter()
 const weatherStore = useWeatherStore()
 
 // 本地是否有城市缓存
-if ($q.localStorage.getItem("cityList")) {
+if ($q.localStorage.getItem('cityList')) {
   // 发送网络请求
-  weatherStore.getAllCityData();
+  weatherStore.getAllCityData()
 } else {
   // 获取城市定位，成功时发送网络请求
   weatherStore.getGeoPosition()
 }
-
 
 // 获取定位
 const onLeftBtnClick = () => {
   weatherStore.getGeoPosition()
 }
 
-// 路由
-const router = useRouter()
 const onRightBtnClick = () => {
-  router.push('/weather/city');
+  router.push('/weather/city')
 }
 
-const { cityList, cityData, } = storeToRefs(weatherStore);
+const { cityList, cityData } = storeToRefs(weatherStore)
 
 // 当前索引值
 let currentIndex = ref('')
@@ -90,12 +96,11 @@ let moveDistance = ref('0')
 
 const move = computed(() => {
   return {
-    left: moveDistance.value + 'px'
+    left: moveDistance.value + 'px',
   }
 })
 // 当前总共移动距离
 let totalDistance = ref('0')
-
 
 // 获取屏幕宽度
 const windowWidth = ref('0')
@@ -105,7 +110,6 @@ onMounted(() => {
     windowWidth.value = document.documentElement.clientWidth
   })
 })
-
 
 // 滑动切换
 const handleSwipe = (evt) => {
@@ -127,6 +131,7 @@ const handleSwipe = (evt) => {
 const indexIcon = (index) => {
   const icon = currentIndex.value == index ? 'bi-record-fill' : 'bi-record'
   const iconGeo = currentIndex.value == index ? 'bi-geo-alt-fill' : 'bi-geo-alt'
+
   return index == 0 ? iconGeo : icon
 }
 </script>
@@ -153,7 +158,7 @@ const indexIcon = (index) => {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #2861c3;
+  background-color: var(--primary);
   border-bottom: var(--border-line);
   user-select: none;
   position: sticky;
@@ -161,8 +166,7 @@ const indexIcon = (index) => {
   z-index: 99999;
 }
 
-
-.page-header>.botton {
+.page-header > .botton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,7 +179,6 @@ const indexIcon = (index) => {
   width: 24px;
   height: 24px;
   margin: 6px;
-
 }
 
 .page-content {
@@ -190,10 +193,9 @@ const indexIcon = (index) => {
   border-top: var(--border-line);
   height: 48px;
   overflow: hidden;
-  background: #2861c3;
+  background: var(--primary);
   z-index: 99999;
 }
-
 
 .weather-page {
   display: flex;

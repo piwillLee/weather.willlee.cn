@@ -1,15 +1,15 @@
 <template>
   <q-pull-to-refresh @refresh="refresh">
-    <div class="weather-template " v-show="showWeatherDate">
+    <div class="weather-template" v-show="showWeatherDate">
       <div class="cityName row justify-center text-h5">{{ props.cityData.cityName }}</div>
       <div class="tempNow q-mt-xl">
-        <div class="temp-left text-h1 q-mr-md  text-weight-bolder text-shadow">
+        <div class="temp-left text-h1 q-mr-md text-weight-bolder text-shadow">
           {{ props.cityData.cityData.now.temp }}
         </div>
         <div class="temp-right">
           <span class="text-h6">℃</span>
           <span>体感
-            <br>
+            <br />
             <span class="q-mr-xs">{{ props.cityData.cityData.now.feelsLike }}</span>
             <span>℃</span>
           </span>
@@ -18,14 +18,14 @@
 
       <!-- <hour-line-chat  :data="props.cityData.cityData.day"></hour-line-chat> -->
       <!-- 24小时 -->
-      <div class="tempToday hide-scrollbar  row  no-wrap " @touchstart.stop @mousedown.stop>
-        <div class="item column items-center no-wrap " v-for="(item, index) in props.cityData.cityData.day" :key="index">
+      <div class="tempToday hide-scrollbar row no-wrap" @touchstart.stop @mousedown.stop>
+        <div class="item column items-center no-wrap" v-for="(item, index) in props.cityData.cityData.day" :key="index">
           <!-- 温度 -->
           <div class="temp q-pb-sm">
             {{ item.temp }}
           </div>
           <!-- icon -->
-          <img class="weather-icon q-mb-sm" :src="`weatherIcons/${item.icon}.svg`" alt="QWeather">
+          <img class="weather-icon q-mb-sm" :src="`weatherIcons/${item.icon}.svg`" alt="QWeather" />
           <!-- 天气 -->
           <div class="time text-weight-bold">
             {{ item.text }}
@@ -41,10 +41,10 @@
         </div>
       </div>
       <!-- 7天 -->
-      <div class="temp7d 	">
-        <div class="temp7d-item row" v-for="item, index in props.cityData.cityData.week" :key="index">
+      <div class="temp7d">
+        <div class="temp7d-item row" v-for="(item, index) in props.cityData.cityData.week" :key="index">
           <span class="week col"> {{ fmtDate(item.fxDate) }} {{ getWeek(formatE(item.fxDate)) }}</span>
-          <img class="weather-icon col" :src="`weatherIcons/${item.iconDay}.svg`" alt="QWeather" draggable="false">
+          <img class="weather-icon col" :src="`weatherIcons/${item.iconDay}.svg`" alt="QWeather" draggable="false" />
           <span class="temp-range col">
             <span>{{ item.tempMin }}</span>
             <span>{{ item.tempMax }}</span>
@@ -55,10 +55,9 @@
       <!-- 天气指数 -->
       <weather-content-card :content="content_now"></weather-content-card>
 
-
       <!-- 空气质量 -->
 
-      <div v-if="props.cityData.cityData.air" class="air  shadow-1 card-box q-pa-lg">
+      <div v-if="props.cityData.cityData.air" class="air shadow-1 card-box q-pa-lg">
         <div class="header q-pb-lg">空气质量</div>
         <div class="footer">
           <div v-for="(item, index) in content_air" :key="index">
@@ -84,33 +83,32 @@
         <a href="https://www.qweather.com/" target="_blank">和风天气</a>
       </footer>
     </div>
-
   </q-pull-to-refresh>
 </template>
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 import { ref, onMounted, nextTick } from 'vue'
-import { storeToRefs } from 'pinia';
-import fmtDate from "src/utils/format/format-day"
-import axios from 'axios';
-import gsap from 'gsap';
+import { storeToRefs } from 'pinia'
+import fmtDate from 'src/utils/format/format-day'
+import axios from 'axios'
+import gsap from 'gsap'
 import hourLineChat from 'src/components/weather/hourLineChat.vue'
 import useWeatherStore from 'src/stores/weatherStore/weatherStore'
 import { date } from 'quasar'
 
-import WeatherContentCard from './weatherContentCard.vue';
+import WeatherContentCard from './weatherContentCard.vue'
 import WeatherSunCard from './weather-sun-card.vue'
 
 // 获取父组件传来的城市 id
 const props = defineProps({
   cityData: {
     type: Object,
-    default: () => ({})
-  }
+    default: () => ({}),
+  },
 })
 
-const weatherStore = useWeatherStore();
-const { showWeatherDate, isLoading, } = storeToRefs(weatherStore)
+const weatherStore = useWeatherStore()
+const { showWeatherDate, isLoading } = storeToRefs(weatherStore)
 onMounted(() => {
   gsap.to('.weather-template', { y: 0 })
 })
@@ -125,7 +123,7 @@ function refresh (done) {
 }
 function getWeatherData () {
   // // 清空cityData
-  weatherStore.cityData = [];
+  weatherStore.cityData = []
   // 发送网络请求
   weatherStore.getAllCityData()
 }
@@ -133,35 +131,34 @@ function getWeatherData () {
 const content_now = [
   {
     name: '体感',
-    text: props.cityData.cityData.now.feelsLike + " ℃",
+    text: props.cityData.cityData.now.feelsLike + ' ℃',
     icon: 'bi-thermometer-half',
   },
   {
     name: '风力',
-    text: props.cityData.cityData.now.windScale + " 级",
+    text: props.cityData.cityData.now.windScale + ' 级',
     icon: 'bi-wind',
   },
   {
     name: '湿度',
-    text: props.cityData.cityData.now.humidity + " %",
+    text: props.cityData.cityData.now.humidity + ' %',
     icon: 'bi-moisture',
   },
   {
     name: '云量',
-    text: props.cityData.cityData.now.cloud + " %",
+    text: props.cityData.cityData.now.cloud + ' %',
     icon: 'bi-cloud',
   },
   {
     name: '能见度',
-    text: props.cityData.cityData.now.vis + " KM",
+    text: props.cityData.cityData.now.vis + ' KM',
     icon: 'bi-eye',
   },
   {
     name: '气压',
-    text: props.cityData.cityData.now.pressure + " hPa",
+    text: props.cityData.cityData.now.pressure + ' hPa',
     icon: 'bi-speedometer2',
   },
-
 ]
 // 生活指数数据
 const content_indices = ref()
@@ -198,12 +195,8 @@ if (props.cityData.cityData.indices != undefined) {
       text: props.cityData.cityData.indices[5]?.category,
       icon: 'bi-image-alt',
     },
-
   ]
 }
-
-
-
 
 // 空气指数
 const content_air = ref()
@@ -211,19 +204,19 @@ const content_air = ref()
 if (props.cityData.cityData.air != undefined) {
   content_air.value = [
     {
-      name: "PM2.5",
+      name: 'PM2.5',
       text: props.cityData.cityData.air?.pm2p5,
     },
     {
-      name: "PM10",
+      name: 'PM10',
       text: props.cityData.cityData.air?.pm10,
     },
     {
-      name: "CO",
+      name: 'CO',
       text: props.cityData.cityData.air?.co,
     },
     {
-      name: "SO2",
+      name: 'SO2',
       text: props.cityData.cityData.air?.so2,
     },
   ]
@@ -231,33 +224,28 @@ if (props.cityData.cityData.air != undefined) {
 
 // 太阳
 const cardData_sun = {
-
   title: '太阳',
   rise: {
     name: '日出',
-    time: props.cityData.cityData.week[0].sunrise
+    time: props.cityData.cityData.week[0].sunrise,
   },
   set: {
     name: '日落',
-    time: props.cityData.cityData.week[0].sunset
+    time: props.cityData.cityData.week[0].sunset,
   },
-
 }
 // 月亮
 const cardData_moon = {
   title: '月亮',
   rise: {
     name: '月出',
-    time: props.cityData.cityData.week[0].moonrise
+    time: props.cityData.cityData.week[0].moonrise,
   },
   set: {
     name: '月落',
-    time: props.cityData.cityData.week[0].moonset
+    time: props.cityData.cityData.week[0].moonset,
   },
 }
-
-
-
 
 const timeStamp = Date.now()
 const formatHM = (time) => {
@@ -272,7 +260,7 @@ const formatE = (time) => {
 }
 
 const getWeek = (time) => {
-  var week = ['一', '二', '三', '四', '五', '六', '日',]
+  var week = ['一', '二', '三', '四', '五', '六', '日']
   for (var i = 0; i < week.length; i++) {
     if (i == time - 1) {
       return '周' + week[i]
@@ -280,16 +268,21 @@ const getWeek = (time) => {
   }
 }
 
-const tempIndicesIconArr = ['bi-universal-access', 'bi-car-front', 'bi-incognito', 'bi-chevron-double-right', 'bi-shield', 'bi-image-alt']
+const tempIndicesIconArr = [
+  'bi-universal-access',
+  'bi-car-front',
+  'bi-incognito',
+  'bi-chevron-double-right',
+  'bi-shield',
+  'bi-image-alt',
+]
 
 const tempIndicesIcon = (index) => {
-
-  return tempIndicesIconArr[index];
+  return tempIndicesIconArr[index]
 }
-
 </script>
 
-<style  scoped>
+<style scoped>
 .weather-template {
   position: absolute;
   width: 100%;
@@ -303,10 +296,8 @@ const tempIndicesIcon = (index) => {
 }
 
 .tempNow>.text-shadow {
-  text-shadow: 3px 3px 0px #FFAD21;
+  text-shadow: 3px 3px 0px var(--secondary);
 }
-
-
 
 .temp-right {
   display: flex;
@@ -314,10 +305,7 @@ const tempIndicesIcon = (index) => {
   justify-content: space-between;
   height: 90px;
   font-size: 12px;
-
 }
-
-
 
 /* 今天 */
 .tempToday {
@@ -332,17 +320,13 @@ const tempIndicesIcon = (index) => {
 }
 
 .item {
-  padding: 120px 20px 16px 0px;
+  padding: 80px 20px 16px 0px;
 }
-
-
 
 .weather-icon {
   width: 24px;
   height: 24px;
-
 }
-
 
 /* 七天 */
 
@@ -353,7 +337,6 @@ const tempIndicesIcon = (index) => {
 .temp7d-item {
   padding: 8px 0;
 }
-
 
 .weather-icon {
   width: 24px;
@@ -371,7 +354,6 @@ const tempIndicesIcon = (index) => {
 }
 
 .now {
-
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -408,7 +390,6 @@ const tempIndicesIcon = (index) => {
 .now-inner .data {
   font-size: 12px;
   font-weight: bold;
-
 }
 
 /* 空气指数 */
@@ -421,7 +402,6 @@ const tempIndicesIcon = (index) => {
 .air .header {
   display: flex;
   align-items: flex-end;
-
 }
 
 .air .header .aqi {

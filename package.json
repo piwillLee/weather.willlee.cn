@@ -1,13 +1,13 @@
 {
-  "name": "quasar-project",
+  "name": "weather",
   "version": "0.0.1",
-  "description": "A Quasar Project",
-  "productName": "Quasar App",
+  "description": "A weather App",
+  "productName": "天天天气 App",
   "author": "willlee <1301436989@qq.com>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
-    "format": "prettier --write \"**/*.{js,vue,css,html,md,json}\" --ignore-path .gitignore",
+    "format": "prettier --write \"**/*.{js,ts,vue,css,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
@@ -33,7 +33,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^9.0.0",
     "postcss": "^8.4.14",
-    "prettier": "^2.5.1",
+    "prettier": "^2.8.4",
     "workbox-build": "^6.5.0",
     "workbox-cacheable-response": "^6.5.0",
     "workbox-core": "^6.5.0",

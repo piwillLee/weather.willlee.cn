@@ -8,14 +8,17 @@
           <q-btn flat round dense icon="bi-search" @click="onRightBtnClick" />
         </q-toolbar>
       </div>
-      <q-list class=" q-pa-lg bt">
+      <q-list class="q-pa-lg bt">
         <template v-for="(item, index) in cityData" :key="index">
-          <q-slide-item left-color="teal-10" right-color="red-6" @action="deleteCity(item, index)" @right="onRight"
-            class="city-list-item     bg-light-blue-10 q-mb-md rounded-borders
-  ">
+          <q-slide-item
+            left-color="blue-3"
+            right-color="amber-14"
+            @action="deleteCity(item, index)"
+            @right="onRight"
+            class="city-list-item q-mb-md rounded-borders"
+          >
             <div class="row justify-between q-pa-md">
-              <div class="row  items-center text-subtitle1
-    ">
+              <div class="row items-center text-subtitle1">
                 {{ item.cityName }}
                 <q-icon v-if="index == 0" class="q-ml-md" name="bi-geo-alt" />
               </div>
@@ -32,66 +35,44 @@
             </template>
           </q-slide-item>
         </template>
-
       </q-list>
     </div>
   </div>
 </template>
 <script setup>
-import { ref, } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 import useWeatherStore from 'src/stores/weatherStore/weatherStore'
-import { storeToRefs } from 'pinia';
-import { useQuasar } from 'quasar';
-const weatherStore = useWeatherStore();
+import { storeToRefs } from 'pinia'
+import { useQuasar } from 'quasar'
+const weatherStore = useWeatherStore()
 const { cityData, cityList } = storeToRefs(weatherStore)
-const small = ref(false)
-
-function handleHold () {
-  small.value = true
-}
-
 const $q = useQuasar()
-
-
 /**
  * 删除城市列表项
  */
-function deleteCity (item, index) {
+function deleteCity(item, index) {
   // 第一个是定位城市，不能删除
   if (index !== 0) {
-    cityList.value.splice(index, 1);
+    cityList.value.splice(index, 1)
     // 本地化
     $q.localStorage.set('cityList', cityList.value)
-
-
-    cityData.value.splice(index, 1);
+    cityData.value.splice(index, 1)
   }
 }
 
 const router = useRouter()
 
 const onLeftBtnClick = () => {
-  router.back();
+  router.back()
 }
 const onRightBtnClick = () => {
-  router.push('/weather/search');
+  router.push('/weather/search')
 }
-
-
-
-let timer
-
-// function finalize (reset) {
-//   timer = setTimeout(() => {
-//     reset()
-//   }, 10)
-// }
 
 const onRight = ({ reset }) => {
   reset()
-  // finalize(reset)
 }
 </script>
 
@@ -100,26 +81,9 @@ const onRight = ({ reset }) => {
   color: #fff;
 }
 
-.box {
-  background-color: rgb(69, 88, 174);
-  height: calc(100vh - 100px);
-  position: relative;
-  transition: all 1s ease;
-}
-
-.box-inner {
-  background-color: rgb(134, 167, 134);
-  display: flex;
-  position: absolute;
-  flex-direction: row;
-
-  height: 50%;
-  transition: all 1s ease-in-out;
-}
-
 .card {
   flex-shrink: 0;
-  width: 390px;
+  width: 24.375rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -127,9 +91,10 @@ const onRight = ({ reset }) => {
   align-items: center;
 }
 
-
-
-/* .q-slide-item__right {
-  background-color: none !important;
-} */
+.city-list-item {
+  /* color: #000; */
+  background: var(--primary);
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 3px 6px 0px var(--secondary);
+}
 </style>

@@ -2,8 +2,8 @@
   "name": "天天天气 APP",
   "short_name": "天天天气",
   "orientation": "portrait",
-  "background_color": "#58adfb",
-  "theme_color": "#58adfb",
+  "background_color": "#5aa2f8",
+  "theme_color": "#5aa2f8",
   "display": "fullscreen",
   "icons": [
     {

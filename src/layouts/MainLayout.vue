@@ -15,5 +15,4 @@ import { ref } from 'vue'
 import HomePage from 'pages/home/homePage.vue'
 
 const tab = ref('home')
-
 </script>
