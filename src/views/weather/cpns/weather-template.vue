@@ -3,8 +3,7 @@
     <div class="weather-template " v-show="showWeatherDate">
       <div class="cityName row justify-center text-h5">{{ props.cityData.cityName }}</div>
       <div class="tempNow q-mt-xl">
-        <div class="temp-left text-h1 q-mr-md  text-weight-bold
-">
+        <div class="temp-left text-h1 q-mr-md  text-weight-bolder text-shadow">
           {{ props.cityData.cityData.now.temp }}
         </div>
         <div class="temp-right">
@@ -20,16 +19,15 @@
       <!-- <hour-line-chat  :data="props.cityData.cityData.day"></hour-line-chat> -->
       <!-- 24小时 -->
       <div class="tempToday hide-scrollbar  row  no-wrap " @touchstart.stop @mousedown.stop>
-
-        <div class="item column items-center no-wrap" v-for="(item, index) in props.cityData.cityData.day" :key="index">
+        <div class="item column items-center no-wrap " v-for="(item, index) in props.cityData.cityData.day" :key="index">
           <!-- 温度 -->
-          <div class="temp">
+          <div class="temp q-pb-sm">
             {{ item.temp }}
           </div>
           <!-- icon -->
-          <img class="weather-icon" :src="`weatherIcons/${item.icon}.svg`" alt="QWeather">
+          <img class="weather-icon q-mb-sm" :src="`weatherIcons/${item.icon}.svg`" alt="QWeather">
           <!-- 天气 -->
-          <div class="time">
+          <div class="time text-weight-bold">
             {{ item.text }}
           </div>
           <!-- 风向 -->
@@ -42,13 +40,12 @@
           </div>
         </div>
       </div>
-
       <!-- 7天 -->
       <div class="temp7d 	">
-        <div class="temp7d-item" v-for="item, index in props.cityData.cityData.week" :key="index">
-          <span class="week"> {{ fmtDate(item.fxDate) }} {{ getWeek(formatE(item.fxDate)) }}</span>
-          <img class="weather-icon" :src="`weatherIcons/${item.iconDay}.svg`" alt="QWeather" draggable="false">
-          <span class="temp-range">
+        <div class="temp7d-item row" v-for="item, index in props.cityData.cityData.week" :key="index">
+          <span class="week col"> {{ fmtDate(item.fxDate) }} {{ getWeek(formatE(item.fxDate)) }}</span>
+          <img class="weather-icon col" :src="`weatherIcons/${item.iconDay}.svg`" alt="QWeather" draggable="false">
+          <span class="temp-range col">
             <span>{{ item.tempMin }}</span>
             <span>{{ item.tempMax }}</span>
           </span>
@@ -89,7 +86,6 @@
     </div>
 
   </q-pull-to-refresh>
-
 </template>
 <script setup>
 import { useRouter } from 'vue-router';
@@ -293,7 +289,7 @@ const tempIndicesIcon = (index) => {
 
 </script>
 
-<style scoped>
+<style  scoped>
 .weather-template {
   position: absolute;
   width: 100%;
@@ -304,6 +300,10 @@ const tempIndicesIcon = (index) => {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.tempNow>.text-shadow {
+  text-shadow: 6px 6px 0px #2861c3;
 }
 
 
@@ -327,14 +327,12 @@ const tempIndicesIcon = (index) => {
 .windDir {
   font-size: 12px;
   white-space: nowrap;
-  transform: scale(0.8);
+  transform: scale(0.7);
+  opacity: 0.8;
 }
 
 .item {
-
-  /* display: flex; */
-  /* flex-direction: column; */
-  padding: 120px 20px 16px;
+  padding: 120px 20px 16px 0px;
 }
 
 
@@ -342,7 +340,6 @@ const tempIndicesIcon = (index) => {
 .weather-icon {
   width: 24px;
   height: 24px;
-  margin-bottom: 6px;
 
 }
 
@@ -355,28 +352,16 @@ const tempIndicesIcon = (index) => {
 
 .temp7d-item {
   padding: 8px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex: 1;
-  min-width: 0;
 }
 
-.week {
-  flex: 33.33%;
-}
 
 .weather-icon {
   width: 24px;
   height: 24px;
   filter: invert();
-
-  flex: 33.33%;
 }
 
 .temp-range {
-  margin-left: 16px;
-  flex: 33.33%;
   display: flex;
   justify-content: flex-end;
 }
