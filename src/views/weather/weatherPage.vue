@@ -8,8 +8,6 @@
           天天天气
         </div>
         <div class="title botton">
-
-
         </div>
         <div class="right botton">
           <q-icon @click="onLeftBtnClick" name="my_location" class="icon q-mr-md" size="xs" />
@@ -149,14 +147,18 @@ const indexIcon = (index) => {
 
 .page-header {
   padding: 0 var(--pd);
-  height: 48px;
+  height: 50px;
   /* border: 1px solid; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: #2861c3;
   border-bottom: var(--border-line);
   user-select: none;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
 }
 
 
@@ -165,7 +167,7 @@ const indexIcon = (index) => {
   justify-content: center;
   align-items: center;
   /* width: 48px; */
-  height: 48px;
+  height: 50px;
   font-size: 16px;
 }
 
@@ -189,6 +191,7 @@ const indexIcon = (index) => {
   height: 48px;
   overflow: hidden;
   background: #2861c3;
+  z-index: 99999;
 }
 
 

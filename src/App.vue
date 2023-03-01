@@ -1,11 +1,8 @@
 <template>
-
   <div class="app">
-
-    <!-- <weather-page></weather-page> -->
-
-    <router-view />
-
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 

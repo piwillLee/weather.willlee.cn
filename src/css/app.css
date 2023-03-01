@@ -37,7 +37,7 @@ body {
 }
 
 .weather-bg {
-  background: linear-gradient(167.93deg, #44b1fb 0%, #2861c3 70%, #2861c3 100%),
+  background: linear-gradient(167.93deg, #2861c3 0%, #2861c3 70%, #2861c3 100%),
     #ffffff;
   color: var(--ft-color-white);
 }
